@@ -1,0 +1,21 @@
+To set Julia 1.1.1 in Shell:
+ 
+    export PATH=/home/bhattadn/Downloads/julia-1.1.1/bin:$PATH
+
+To set path for functioning of Jlcxx.hpp of CxxWrap:
+
+    export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:the/path/to/julia-1.1.1/include/julia
+
+    export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:the/path/to/.julia/packages/CxxWrap/sarOk/deps/usr/include
+
+To directly create a .so file:
+
+    g++ -DJULIA_ENABLE_THREADING=1  -I/home/bhattadn/.julia/packages/CxxWrap/sarOk/deps/usr/include/ -I/home/bhattadn/Downloads/julia-1.1.1/include/julia  -L/home/bhattadn/Downloads/julia-1.1.1/lib -ljulia -L/home/bhattadn/.julia/packages/CxxWrap/sarOk/deps/usr/lib -lcxxwrap_julia -std=c++14 -fPIC  -O3 -shared -Wl,-soname,cpp_side.so -o cpp_side.so  cpp_side.cpp
+
+//To set the .o file of the Cpp:
+
+//g++ -std=c++14 -fPIC -Wall -c nameOfFile.cpp
+
+//To set the .so file of the .o file:
+
+//g++ -std=c++14 -fPIC -O3 -DNDEBUG -shared -Wl,-soname,nameOfSharedLib.so -o nameOfSharedLib.so nameOfFile.o -Wl,-rpath,path/to/libcxxwrap_julia.so.0.5.3
